@@ -20,7 +20,4 @@ while principal > 0:
     principal = principal * (1 + rate/12) - payment_with_extra
     total_paid = total_paid + payment_with_extra
     month += 1
-    print(month, round(total_paid, 2), round(principal, 2))
-
-print('Total paid', round(total_paid, 2))
-print('Months', month)
+    print(f'{month:>5} {total_paid:>15.2f} {principal:>15.2f}')
