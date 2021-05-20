@@ -15,6 +15,8 @@ while principal > 0:
     payment_with_extra = payment
     if extra_payment_start_month <= month < extra_payment_end_month:
         payment_with_extra += extra_payment
+    if principal < payment_with_extra:
+        payment_with_extra = principal * (1 + rate/12)
     principal = principal * (1 + rate/12) - payment_with_extra
     total_paid = total_paid + payment_with_extra
     month += 1
