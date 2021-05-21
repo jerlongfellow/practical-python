@@ -60,3 +60,7 @@ for holding in portfolio:
 
 print(f'Current value of the portfolio: {current_portfolio_value}')
 print(f'Gain/loss: {gain}')
+
+report = make_report(portfolio, prices)
+for name, shares, price, change in report:
+    print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
