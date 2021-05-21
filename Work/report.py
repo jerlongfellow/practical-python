@@ -61,6 +61,18 @@ for holding in portfolio:
 print(f'Current value of the portfolio: {current_portfolio_value}')
 print(f'Gain/loss: {gain}')
 
+headers = ('Name', 'Shares', 'Price', 'Change')
 report = make_report(portfolio, prices)
+
+header_string = ''
+separator_string = ''
+
+for header in headers:
+    header_string += f'{header:>10s} '
+    separator_string += '-' * 10 + ' '
+
+print(header_string[:-1])
+print(separator_string[:-1])
+
 for name, shares, price, change in report:
     print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
