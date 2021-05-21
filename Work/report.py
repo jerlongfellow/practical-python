@@ -75,4 +75,4 @@ print(header_string[:-1])
 print(separator_string[:-1])
 
 for name, shares, price, change in report:
-    print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
+    print(f'{name:>10s} {shares:>10d} {f"${price:0.2f}":>10} {change:>10.2f}')
