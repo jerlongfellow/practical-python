@@ -33,3 +33,17 @@ def read_prices(filename):
                 print(f'Could not add {row} to prices.')
 
     return prices
+
+portfolio = read_portfolio('Data/portfolio.csv')
+prices = read_prices('Data/prices.csv')
+current_portfolio_value = 0.0
+gain = 0.0
+
+for holding in portfolio:
+    current_holding_value = prices[holding['name']] * holding['shares']
+    original_holding_value = holding['shares'] * holding['price']
+    current_portfolio_value += current_holding_value
+    gain += current_holding_value - original_holding_value
+
+print(f'Current value of the portfolio: {current_portfolio_value}')
+print(f'Gain/loss: {gain}')
