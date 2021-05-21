@@ -9,8 +9,11 @@ def portfolio_cost(filename):
         next(portfolio_file)
         for line in portfolio_file:
             split_line = line.split(',')
-            num_shares = int(split_line[1])
-            share_price = float(split_line[2])
+            try:
+                num_shares = int(split_line[1])
+                share_price = float(split_line[2])
+            except ValueError:
+                print(f'could not process {line}')
             total_cost += num_shares * share_price
     return total_cost
 
