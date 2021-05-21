@@ -1,19 +1,19 @@
 # pcost.py
 #
 # Exercise 1.27
-
+import csv
 
 def portfolio_cost(filename):
     total_cost = 0.00
     with open(filename, 'rt') as portfolio_file:
-        next(portfolio_file)
-        for line in portfolio_file:
-            split_line = line.split(',')
+        rows = csv.reader(portfolio_file)
+        next(rows)
+        for row in rows:
             try:
-                num_shares = int(split_line[1])
-                share_price = float(split_line[2])
+                num_shares = int(row[1])
+                share_price = float(row[2])
             except ValueError:
-                print(f'could not process {line}')
+                print(f'could not process {row}')
             total_cost += num_shares * share_price
     return total_cost
 
