@@ -4,6 +4,7 @@
 
 import csv
 
+
 def read_portfolio(filename):
     portfolio = []
 
@@ -17,6 +18,7 @@ def read_portfolio(filename):
             portfolio.append(holding)
 
     return portfolio
+
 
 def read_prices(filename):
     prices = {}
@@ -32,6 +34,7 @@ def read_prices(filename):
 
     return prices
 
+
 def make_report(portfolio, prices):
     report = []
 
@@ -45,32 +48,20 @@ def make_report(portfolio, prices):
 
     return report
 
-portfolio = read_portfolio('Data/portfoliodate.csv')
-prices = read_prices('Data/prices.csv')
-current_portfolio_value = 0.0
-gain = 0.0
 
-for holding in portfolio:
-    current_holding_value = prices[holding['name']] * holding['shares']
-    original_holding_value = holding['shares'] * holding['price']
-    current_portfolio_value += current_holding_value
-    gain += current_holding_value - original_holding_value
+def print_report(report, headers=('Name', 'Shares', 'Price', 'Change')):
+    header_string = ''
+    separator_string = ''
 
-print(f'Current value of the portfolio: {current_portfolio_value}')
-print(f'Gain/loss: {gain}')
+    for header in headers:
+        header_string += f'{header:>10s} '
+        separator_string += '-' * 10 + ' '
 
-headers = ('Name', 'Shares', 'Price', 'Change')
-report = make_report(portfolio, prices)
+    print(header_string[:-1])
+    print(separator_string[:-1])
 
-header_string = ''
-separator_string = ''
+    for name, shares, price, change in report:
+        print(f'{name:>10s} {shares:>10d} {f"${price:0.2f}":>10} {change:>10.2f}')
 
-for header in headers:
-    header_string += f'{header:>10s} '
-    separator_string += '-' * 10 + ' '
 
-print(header_string[:-1])
-print(separator_string[:-1])
-
-for name, shares, price, change in report:
-    print(f'{name:>10s} {shares:>10d} {f"${price:0.2f}":>10} {change:>10.2f}')
+print_report(make_report(read_portfolio('Data/portfolio.csv'), read_prices('Data/prices.csv')))
