@@ -64,4 +64,10 @@ def print_report(report, headers=('Name', 'Shares', 'Price', 'Change')):
         print(f'{name:>10s} {shares:>10d} {f"${price:0.2f}":>10} {change:>10.2f}')
 
 
-print_report(make_report(read_portfolio('Data/portfolio.csv'), read_prices('Data/prices.csv')))
+def portfolio_report(portfolio_filename, prices_filename):
+    print_report(make_report(
+        read_portfolio(portfolio_filename),
+        read_prices(prices_filename)
+    ))
+    
+portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
