@@ -66,7 +66,10 @@ def portfolio_report(portfoliofile, pricefile, fmt='txt'):
     
 
 def main(argv):
-    portfolio_report(argv[1], argv[2])
+    if len(argv) == 4:
+        portfolio_report(argv[1], argv[2], argv[3])
+    else:
+        portfolio_report(argv[1], argv[2])
 
 
 if __name__ == '__main__':
