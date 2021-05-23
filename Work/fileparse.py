@@ -5,42 +5,44 @@
 import csv
 
 
-def parse_csv(filename, select=None, types=None, has_header=True, delimiter=',', silence_errors=False):
+def parse_csv(file, select=None, types=None, has_header=True, delimiter=',', silence_errors=False):
     '''
     Parse a CSV file into a list of records
     '''
     if select and not has_header:
         raise RuntimeError('select argument requires column headers')
+
+    if isinstance(file, str):
+        raise TypeError('file should be Iterable[str], not str')
     
-    with open(filename) as f:
-        rows = csv.reader(f, delimiter=delimiter)
+    rows = csv.reader(file, delimiter=delimiter)
 
-        if has_header:
-            headers = next(rows)
+    if has_header:
+        headers = next(rows)
 
-        if select:
-            indices = [ headers.index(colname) for colname in select ]
-            headers = select
-        else:
-            indices = []
+    if select:
+        indices = [ headers.index(colname) for colname in select ]
+        headers = select
+    else:
+        indices = []
 
-        records = []
-        for row_number, row in enumerate(rows, start=1):
-            if not row:
-                continue
+    records = []
+    for row_number, row in enumerate(rows, start=1):
+        if not row:
+            continue
 
-            try:
-                if indices:
-                    row = [ row[index] for index in indices ]
+        try:
+            if indices:
+                row = [ row[index] for index in indices ]
 
-                if types:
-                    row = [ func(val) for func, val in zip(types, row) ]
+            if types:
+                row = [ func(val) for func, val in zip(types, row) ]
 
-                record = dict(zip(headers, row)) if has_header else tuple(row)
-                records.append(record)
-            except ValueError as e:
-                if not silence_errors:
-                    print(f"Row {row_number}: Couldn't convert {row}")
-                    print(f'Row {row_number}: Reason {e}')
+            record = dict(zip(headers, row)) if has_header else tuple(row)
+            records.append(record)
+        except ValueError as e:
+            if not silence_errors:
+                print(f"Row {row_number}: Couldn't convert {row}")
+                print(f'Row {row_number}: Reason {e}')
 
     return records
