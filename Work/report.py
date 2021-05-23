@@ -3,11 +3,16 @@
 # Exercise 2.4
 
 from fileparse import parse_csv
+from stock import Stock
 
 
 def read_portfolio(filename):
     with open(filename, 'rt') as file:
-        portfolio = parse_csv(file, types=[str, int, float])
+        holdings = parse_csv(file, types=[str, int, float])
+        portfolio = [
+            Stock(holding['name'], holding['shares'], holding['price'])
+            for holding in holdings
+        ]
 
     return portfolio
 
@@ -23,10 +28,10 @@ def make_report(portfolio, prices):
     report = []
 
     for holding in portfolio:
-        name = holding['name']
-        shares = holding['shares']
+        name = holding.name
+        shares = holding.shares
         price = prices[name]
-        change = price - holding['price']
+        change = price - holding.price
         
         report.append((name, shares, price, change))
 
