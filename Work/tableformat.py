@@ -53,14 +53,23 @@ class HTMLTableFormatter(TableFormatter):
         return '<tr>' + ''.join([ f'<t{cell_type}>{datum}</t{cell_type}>' for datum in data ]) + '</tr>'
 
 
+class FormatError(Exception):
+    pass
+
+
 names_to_formatters = {
     'txt' : TextTableFormatter,
     'csv' : CSVTableFormatter,
     'html' : HTMLTableFormatter
 }
 
+
 def create_formatter(name):
-    return names_to_formatters[name]()
+    if name in names_to_formatters:
+        return names_to_formatters[name]()
+    else:
+        raise FormatError(f'Unknown table format {name}')
+
 
 def print_table(objs, attrs, formatter):
     formatter.headings(attrs)
