@@ -6,11 +6,17 @@ from fileparse import parse_csv
 
 
 def read_portfolio(filename):
-    return parse_csv(filename, types=[str, int, float])
+    with open(filename, 'rt') as file:
+        portfolio = parse_csv(file, types=[str, int, float])
+
+    return portfolio
 
 
 def read_prices(filename):
-    return dict(parse_csv(filename, types=[str, float], has_header=False))
+    with open(filename, 'rt') as file:
+        prices = dict(parse_csv(file, types=[str, float], has_header=False))
+
+    return prices
 
 
 def make_report(portfolio, prices):
