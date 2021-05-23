@@ -2,37 +2,15 @@
 #
 # Exercise 2.4
 
-import csv
+from fileparse import parse_csv
 
 
 def read_portfolio(filename):
-    portfolio = []
-
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        headers = next(rows)
-        for row in rows:
-            holding = dict(zip(headers, row))
-            holding['shares'] = int(holding['shares'])
-            holding['price'] = float(holding['price'])
-            portfolio.append(holding)
-
-    return portfolio
+    return parse_csv(filename, types=[str, int, float])
 
 
 def read_prices(filename):
-    prices = {}
-
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-
-        for row in rows:
-            try:
-                prices[row[0]] = float(row[1])
-            except IndexError:
-                print(f'Could not add {row} to prices.')
-
-    return prices
+    return dict(parse_csv(filename, types=[str, float], has_header=False))
 
 
 def make_report(portfolio, prices):
