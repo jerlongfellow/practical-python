@@ -62,3 +62,7 @@ names_to_formatters = {
 def create_formatter(name):
     return names_to_formatters[name]()
 
+def print_table(objs, attrs, formatter):
+    formatter.headings(attrs)
+    for obj in objs:
+        formatter.row([ str(getattr(obj, attr)) for attr in attrs ])
