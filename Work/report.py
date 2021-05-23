@@ -48,4 +48,11 @@ def portfolio_report(portfolio_filename, prices_filename):
         read_prices(prices_filename)
     ))
     
-portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
+
+def main(argv):
+    portfolio_report(argv[1], argv[2])
+
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
