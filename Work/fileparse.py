@@ -5,7 +5,7 @@
 import csv
 
 
-def parse_csv(filename, select=None, types=None, has_header=True, delimiter=','):
+def parse_csv(filename, select=None, types=None, has_header=True, delimiter=',', silence_errors=False):
     '''
     Parse a CSV file into a list of records
     '''
@@ -39,7 +39,8 @@ def parse_csv(filename, select=None, types=None, has_header=True, delimiter=',')
                 record = dict(zip(headers, row)) if has_header else tuple(row)
                 records.append(record)
             except ValueError as e:
-                print(f"Row {row_number}: Couldn't convert {row}")
-                print(f'Row {row_number}: Reason {e}')
+                if not silence_errors:
+                    print(f"Row {row_number}: Couldn't convert {row}")
+                    print(f'Row {row_number}: Reason {e}')
 
     return records
