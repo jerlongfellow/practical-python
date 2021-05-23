@@ -51,3 +51,14 @@ class HTMLTableFormatter(TableFormatter):
 
     def make_table_row(self, data, cell_type='d'):
         return '<tr>' + ''.join([ f'<t{cell_type}>{datum}</t{cell_type}>' for datum in data ]) + '</tr>'
+
+
+names_to_formatters = {
+    'txt' : TextTableFormatter,
+    'csv' : CSVTableFormatter,
+    'html' : HTMLTableFormatter
+}
+
+def create_formatter(name):
+    return names_to_formatters[name]()
+
