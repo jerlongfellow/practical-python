@@ -1,7 +1,9 @@
 class Stock:
+    __slots__ = ('name', '_shares', 'price')
+
     def __init__(self, name: str, shares: int, price: float):
         self.name = name
-        self._shares = shares
+        self.shares = shares
         self.price = price
 
     def __repr__(self):
