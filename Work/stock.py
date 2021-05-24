@@ -1,7 +1,7 @@
 class Stock:
     def __init__(self, name: str, shares: int, price: float):
         self.name = name
-        self.shares = shares
+        self._shares = shares
         self.price = price
 
     def __repr__(self):
@@ -10,6 +10,17 @@ class Stock:
     @property
     def cost(self):
         return self.shares * self.price
+
+    @property
+    def shares(self):
+        return self._shares
+
+    @shares.setter
+    def shares(self, value):
+        if not isinstance(value, int):
+            raise TypeError('expected an integer')
+        else:
+            self._shares = value
 
     def sell(self, sold_shares: int):
         if self.shares < sold_shares:
