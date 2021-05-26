@@ -10,10 +10,7 @@ def portfolio_cost(filename):
     total_cost = 0.00
     portfolio = read_portfolio(filename)
 
-    for holding in portfolio:
-        total_cost += holding.shares * holding.price
-
-    return total_cost
+    return portfolio.total_cost
 
 
 def main(argv):

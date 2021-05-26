@@ -4,6 +4,7 @@
 
 from fileparse import parse_csv
 from stock import Stock
+from portfolio import Portfolio
 import tableformat
 
 
@@ -15,7 +16,7 @@ def read_portfolio(filename):
             for holding in holdings
         ]
 
-    return portfolio
+    return Portfolio(portfolio)
 
 
 def read_prices(filename):
