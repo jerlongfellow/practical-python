@@ -1,5 +1,9 @@
+from typedproperty import typedproperty
+
 class Stock:
-    __slots__ = ('name', '_shares', 'price')
+    name = typedproperty('name', str)
+    shares = typedproperty('shares', int)
+    price = typedproperty('price', float)
 
     def __init__(self, name: str, shares: int, price: float):
         self.name = name
@@ -12,17 +16,6 @@ class Stock:
     @property
     def cost(self):
         return self.shares * self.price
-
-    @property
-    def shares(self):
-        return self._shares
-
-    @shares.setter
-    def shares(self, value):
-        if not isinstance(value, int):
-            raise TypeError('expected an integer')
-        else:
-            self._shares = value
 
     def sell(self, sold_shares: int):
         if self.shares < sold_shares:
