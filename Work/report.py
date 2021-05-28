@@ -8,9 +8,12 @@ from portfolio import Portfolio
 import tableformat
 
 
-def read_portfolio(filename):
+def read_portfolio(filename, **opts):
     with open(filename, 'rt') as file:
-        holdings = parse_csv(file, types=[str, int, float])
+        holdings = parse_csv(file,
+                             select=['name','shares','price'],
+                             types=[str, int, float],
+                             **opts)
         portfolio = [ Stock(**holding) for holding in holdings ]
 
     return Portfolio(portfolio)
@@ -31,7 +34,7 @@ def make_report_data(portfolio, prices):
         shares = holding.shares
         price = prices[name]
         change = price - holding.price
-        
+
         report.append((name, shares, price, change))
 
     return report
@@ -61,7 +64,7 @@ def portfolio_report(portfoliofile, pricefile, fmt='txt'):
     # Print it out
     formatter = tableformat.create_formatter(fmt)
     print_report(report, formatter)
-    
+
 
 def main(argv):
     if len(argv) == 4:
