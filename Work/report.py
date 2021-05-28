@@ -11,10 +11,7 @@ import tableformat
 def read_portfolio(filename):
     with open(filename, 'rt') as file:
         holdings = parse_csv(file, types=[str, int, float])
-        portfolio = [
-            Stock(holding['name'], holding['shares'], holding['price'])
-            for holding in holdings
-        ]
+        portfolio = [ Stock(**holding) for holding in holdings ]
 
     return Portfolio(portfolio)
 
