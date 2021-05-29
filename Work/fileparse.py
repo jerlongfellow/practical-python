@@ -3,6 +3,8 @@
 # Exercise 3.3
 
 import csv
+import logging
+log = logging.getLogger(__name__)
 
 
 def parse_csv(file, select=None, types=None, has_header=True, delimiter=',', silence_errors=False):
@@ -14,7 +16,7 @@ def parse_csv(file, select=None, types=None, has_header=True, delimiter=',', sil
 
     if isinstance(file, str):
         raise TypeError('file should be Iterable[str], not str')
-    
+
     rows = csv.reader(file, delimiter=delimiter)
 
     if has_header:
@@ -42,7 +44,8 @@ def parse_csv(file, select=None, types=None, has_header=True, delimiter=',', sil
             records.append(record)
         except ValueError as e:
             if not silence_errors:
-                print(f"Row {row_number}: Couldn't convert {row}")
-                print(f'Row {row_number}: Reason {e}')
+                log.warning(f"Row %d: Couldn't convert %s", row_number, row)
+                log.debug(f'Row %d: Reason %s', row_number, e)
+            continue
 
     return records
