@@ -2,10 +2,10 @@
 #
 # Exercise 2.4
 
-from fileparse import parse_csv
-from stock import Stock
-from portfolio import Portfolio
-import tableformat
+from .fileparse import parse_csv
+from .stock import Stock
+from .portfolio import Portfolio
+from . import tableformat
 import logging
 
 logging.basicConfig(
